@@ -41,7 +41,7 @@ constructor(){
   render() {
 
    const searchdata=()=>{
-        const query = this.state.ingredient;
+        const query = this.state.ingredient.toUpperCase();
         const database = this.state.componenttable;
         console.log(database);
     let records=[];
@@ -69,9 +69,10 @@ constructor(){
       return(
         <>
         <li>Name: {element.name}</li>
-        <ul>{element.ingredients.map((ingredient)=>{
-            <li>{ingredient}</li>
+        <ul>{element.ingredients.map((element)=>{return(
+            <li>{element}</li>)
         })}</ul>
+        
 
         
         </>

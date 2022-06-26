@@ -92,15 +92,15 @@ export default class Updatemedicine extends Component {
     const db=getDatabase(firedb);
     
     const medicine={
-      name: this.state.medicinename,
-      shelflocation: this.state.medicineshelflocation,
-      surpluslocation: this.state.medicinesurpluslocation,
-      ingredients: this.state.medicineingredients.split("+"),
-      price: this.state.medicineprice,
-      amount: this.state.medicineamount,
-      tabletamount: this.state.medicinetabletamount,
-      medicinepricepertablet: `${parseInt(this.state.medicineprice)/parseInt(this.state.medicinetabletamount)}`,
-      expiry: `${(this.state.medicineexpirymonth)}/${(this.state.medicineexpiryyear)}`
+      name: this.state.medicinename.toUpperCase(),
+      shelflocation: this.state.medicineshelflocation.toUpperCase(),
+      surpluslocation: this.state.medicinesurpluslocation.toUpperCase(),
+      ingredients: this.state.medicineingredients.toUpperCase().split("+"),
+      price: this.state.medicineprice.toUpperCase(),
+      amount: this.state.medicineamount.toUpperCase(),
+      tabletamount: this.state.medicinetabletamount.toUpperCase(),
+      medicinepricepertablet: `${parseInt(this.state.medicineprice)/parseInt(this.state.medicinetabletamount)}`.toUpperCase(),
+      expiry: `${(this.state.medicineexpirymonth)}/${(this.state.medicineexpiryyear)}`.toUpperCase()
     }
     
       set(ref(db, "Medicines/"+this.state.medicinename),(medicine)).then(alert(`the details for ${this.state.medicinename} were updated`)).catch((err)=>{alert(err)});
@@ -151,7 +151,7 @@ export default class Updatemedicine extends Component {
         
         const db= getDatabase(firedb);
         let record=[];
-        const name= this.state.queryname;
+        const name= this.state.queryname.toUpperCase();
         onValue(ref(db, "Medicines/"+name), (snapshot)=>{
          const key= snapshot.key;
          const price =snapshot.val().price;
@@ -173,7 +173,7 @@ export default class Updatemedicine extends Component {
   render() {
     return (
       <>
-   <form style={{width : "70%",marginLeft: "8rem",marginTop: "3rem"}}>
+   <form >
      <h2 style={{textAlign: "center"}}>Reference Section</h2>
      <div className="input-group flex-nowrap my-2">
           <span className="input-group-text" id="addon-wrapping">Medicine</span>
@@ -207,7 +207,7 @@ export default class Updatemedicine extends Component {
 </div>
 
 
- <form style={{width : "70%",marginLeft: "8rem",marginTop: "3rem"}}>
+ <form >
         <h2 style={{textAlign: "center"}}>Enter Medicine Details to be Updated</h2>
 
         <div className="input-group flex-nowrap my-2">

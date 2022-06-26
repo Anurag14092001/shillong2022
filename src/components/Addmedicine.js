@@ -46,19 +46,25 @@ export default class Addmedicine extends Component {
 
 e.preventDefault();
 
+
+
 console.log("0");
     const medicine = {
-      name: this.state.medicineName,
-      shelflocation: this.state.medicineShelfLocation,
-      surpluslocation: this.state.medicineSurplusLocation,
-      ingredients: this.state.medicineingredients.split("+"),
-      price: this.state.medicineprice,
-      amount: this.state.medicineamount,
-      tabletamount: this.state.medicinetabletamount,
-      medicinepricepertablet: `${JSON.parse(this.state.medicineprice)/JSON.parse(this.state.medicinetabletamount)}`,
-      expiry: `${this.state.medicineexpirymonth}/${this.state.medicineexpiryyear}`
+      name: this.state.medicineName.toUpperCase(),
+      shelflocation: this.state.medicineShelfLocation.toUpperCase(),
+      surpluslocation: this.state.medicineSurplusLocation.toUpperCase(),
+      ingredients: this.state.medicineingredients.toUpperCase().split("+"),
+      price: this.state.medicineprice.toUpperCase(),
+      amount: this.state.medicineamount.toUpperCase(),
+      tabletamount: this.state.medicinetabletamount.toUpperCase(),
+      medicinepricepertablet: `${JSON.parse(this.state.medicineprice)/JSON.parse(this.state.medicinetabletamount)}`.toUpperCase(),
+      expiry: `${this.state.medicineexpirymonth}/${this.state.medicineexpiryyear}`.toUpperCase()
     };
-    console.log("1")
+    
+    if(medicine.name===""||medicine.shelflocation===""||medicine.shelflocation===""||this.state.medicineingredients.toUpperCase()===""||medicine.price===""||medicine.amount===""||medicine.tabletamount===""||this.state.medicineexpirymonth===""||this.state.medicineexpiryyear===""){
+      alert("Please fill all the fields");}
+      else{
+      console.log("1")
     const db = getDatabase(firedb);
     console.log("2");
    set(ref(db, "Medicines/"+medicine.name),(medicine)).then(alert(`the details for ${this.state.medicineName} were updated`)).catch((err)=>{alert(err)});;
@@ -83,7 +89,7 @@ console.log("0");
       medicineamount: "",
       medicineexpirymonth: "",
       medicineexpiryyear: ""
-   })
+   })}
 
     
 
@@ -93,7 +99,7 @@ console.log("0");
 
   handlechange = e => {
     this.setState({ [e.target.name]: e.target.value });
-    console.log(this.state);
+    
   }
 
   render() {
@@ -104,7 +110,7 @@ console.log("0");
 
     return (<>
        
-      <form style={{width : "70%",marginLeft: "8rem",marginTop: "3rem"}} >
+      <form  >
       <h2 style={{textAlign: "center"}}>MEDICINE INPUT SECTION</h2>
         <div className="input-group flex-nowrap my-2">
           <span className="input-group-text" id="addon-wrapping">Medicine Name</span>
