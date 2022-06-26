@@ -103,6 +103,9 @@ export default class Updatemedicine extends Component {
       expiry: `${(this.state.medicineexpirymonth)}/${(this.state.medicineexpiryyear)}`.toUpperCase()
     }
     
+    if(medicine.name===""||medicine.shelflocation===""||medicine.surpluslocation===""||this.state.medicineingredients.toUpperCase()===""||medicine.price===""||medicine.amount===""||medicine.tabletamount===""||this.state.medicineexpirymonth===""||this.state.medicineexpiryyear===""){
+ alert("Please fill all the fields");
+    }else{
       set(ref(db, "Medicines/"+this.state.medicinename),(medicine)).then(alert(`the details for ${this.state.medicinename} were updated`)).catch((err)=>{alert(err)});
       console.log("4");
 
@@ -139,7 +142,7 @@ export default class Updatemedicine extends Component {
       
         
       }
-      )
+      )}
 
     }
     

@@ -57,11 +57,11 @@ console.log("0");
       price: this.state.medicineprice.toUpperCase(),
       amount: this.state.medicineamount.toUpperCase(),
       tabletamount: this.state.medicinetabletamount.toUpperCase(),
-      medicinepricepertablet: `${JSON.parse(this.state.medicineprice)/JSON.parse(this.state.medicinetabletamount)}`.toUpperCase(),
+      medicinepricepertablet: `${parseInt(this.state.medicineprice)/parseInt(this.state.medicinetabletamount)}`.toUpperCase(),
       expiry: `${this.state.medicineexpirymonth}/${this.state.medicineexpiryyear}`.toUpperCase()
     };
     
-    if(medicine.name===""||medicine.shelflocation===""||medicine.shelflocation===""||this.state.medicineingredients.toUpperCase()===""||medicine.price===""||medicine.amount===""||medicine.tabletamount===""||this.state.medicineexpirymonth===""||this.state.medicineexpiryyear===""){
+    if(medicine.name===""||medicine.surpluslocation===""||medicine.shelflocation===""||this.state.medicineingredients.toUpperCase()===""||medicine.price===""||medicine.amount===""||medicine.tabletamount===""||this.state.medicineexpirymonth===""||this.state.medicineexpiryyear===""){
       alert("Please fill all the fields");}
       else{
       console.log("1")
@@ -119,7 +119,7 @@ console.log("0");
 
         <div className="input-group flex-nowrap my-2">
           <span className="input-group-text" id="addon-wrapping">Medicine Number</span>
-          <input type="text" name='medicineamount' ref={this.amountref} className="form-control" onChange={this.handlechange} placeholder="Enter number of strips of medicine" aria-label="Username" aria-describedby="addon-wrapping" />
+          <input type="number" name='medicineamount'  ref={this.amountref} className="form-control" onChange={this.handlechange} placeholder="Enter number of strips of medicine" aria-label="Username" aria-describedby="addon-wrapping" />
         </div>
 
         <div className="input-group flex-nowrap my-2">

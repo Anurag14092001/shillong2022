@@ -11,7 +11,8 @@ export default class Medicinedatabase extends Component {
       medicinededuction: "",
       tabledata: [],
       total: "0",
-      displayarr: []
+      displayarr: [],
+      medicinetabletdeduction: ""
 
 
 
@@ -25,14 +26,14 @@ export default class Medicinedatabase extends Component {
     
     const db= getDatabase(firedb);
     let record=[];
-    const name= this.state.medicinename;
+    const name= this.state.medicinename.toUpperCase();
     onValue(ref(db, "Medicines/"+name), (snapshot)=>{
       
       const key = snapshot.key;
       const data= snapshot.val();
       record =[{"key": key, "data": data}]})
       console.log(record);
-      this.setState({...this.state,displayarr:record});
+      this.setState({...this.state,displayarr:record},()=>{console.log(this.state.displayarr[0])});
       console.log("search complete");
     
   }
@@ -40,16 +41,28 @@ export default class Medicinedatabase extends Component {
   addmedicine = (e) => {
     e.preventDefault();
     const db= getDatabase(firedb);
-    const name= this.state.medicinename;
-    const deduction= this.state.medicinededuction;
+    const name= this.state.medicinename.toUpperCase();
+    var deduction="";
+    if(this.state.medicinededuction===""&&this.state.medicinetabletdeduction!==""){
+     deduction= `${parseFloat(this.state.medicinetabletdeduction)/parseFloat(this.state.displayarr[0].data.tabletamount)}`;}
+    else if(this.state.medicinededuction!==""&&this.state.medicinetabletdeduction===""){
+     deduction = this.state.medicinededuction;
+    }
+    else if(this.state.medicinededuction!==""&&this.state.medicinetabletdeduction!==""){
+    deduction = `${parseFloat(this.state.medicinededuction)+(parseFloat(this.state.medicinetabletdeduction)/parseFloat(this.state.displayarr[0].data.tabletamount))}`
+    }
+    console.log(deduction);
     var obj ="";
     onValue(ref(db, "Medicines/"+name),(snapshot)=>{
+      
       const key= snapshot.key;
       const price= snapshot.val().price;
       const data= snapshot.val();
       const amount =snapshot.val().amount;
       const cost = `${(parseFloat(snapshot.val().price)*parseFloat(deduction))}`;
+      
       obj = {"key":key,"price":price,"amount":amount,"deduction": deduction,"data":data,"cost":cost};
+      console.log("check");
       console.log(obj);
       }
     )
@@ -130,7 +143,8 @@ export default class Medicinedatabase extends Component {
         <li>Tablets per strip: {element.data.tabletamount}</li>
         <li>price per tablet: {element.data.medicinepricepertablet}</li>
         <li>expiry: {element.data.expiry}</li>
-        <input type="text" id="medicinededuction" placeholder='Enter how many strips you want to add' value={this.state.medicinededuction} onChange={changedata} aria-label="Last name" className="form-control" />
+        <input type="text" id="medicinededuction" placeholder='Enter how many strips/bottles you want to add' value={this.state.medicinededuction} onChange={changedata} aria-label="Last name" className="form-control" />
+        <input type="text" id="medicinetabletdeduction" placeholder='Enter how many tablets you want to add' value={this.state.medicinetabletdeduction} onChange={changedata} aria-label="Last name" className="form-control" />
         <button className='btn btn-primary success' onClick={this.addmedicine} > Add </button>
         </>
       )
