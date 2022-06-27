@@ -3,6 +3,15 @@
   
 }
 
+body {
+  background-color: rgba(22, 20, 20, 0.712);
+  
+}
+
+sample {
+  background-color: rgba(255, 63, 29, 0.562);
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -125,13 +125,13 @@ export default class Medicinedatabase extends Component {
 
     return (
       <>
-        <div className="input-group">
+        <div style={{paddingTop: "12px"}} className="input-group">
           <span className="input-group-text">Search</span>
           <input type="text" id="medicinename" placeholder='enter name of medicine' value={this.state.medicinename} onChange={changedata} aria-label="Search" className="form-control" />
           
         </div>
 
-        <button className='btn btn-primary success' onClick={this.searchdata} > Search </button>
+       <p style={{textAlign: "center",paddingTop: "5px"}}> <button className='btn btn-primary success'  onClick={this.searchdata} > Search </button></p>
         {this.state.displayarr.map((element)=>{
       return(
         <>
@@ -150,7 +150,7 @@ export default class Medicinedatabase extends Component {
       )
     })}
 
-        <table className="table">
+        <table style={{color: "azure"}} className="table">
           <thead>
             <tr>
               <th scope="col">#</th>

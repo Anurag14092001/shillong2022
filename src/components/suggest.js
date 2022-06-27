@@ -9,7 +9,9 @@ constructor(){
     this.state={
         componenttable: [],
         ingredient: "",
-        displayarr: []
+        displayarr: [],
+        color: "white",
+        backgroundColor: "black" 
     }
 }
 
@@ -61,10 +63,11 @@ constructor(){
 
     return (
       <>
-   <input type="text" id="ingredient" placeholder='enter the ingredient' value={this.state.ingredient} onChange={this.changedata} aria-label="Search" className="form-control" />
-      <button className='btn btn-primary success' onClick={searchdata}>Search</button>
+   <input type="text" style={{color: "azure", marginTop: "10px", backgroundColor:"rgba(22, 20, 20, 0.712)"}} id="ingredient" placeholder='enter the ingredient' value={this.state.ingredient} onChange={this.changedata} aria-label="Search" className='form-control' />
+    <p style={{textAlign: "center",marginTop: "10px"}} >  <button style={{backgroundColor: this.state.backgroundColor,color:this.state.color}} onMouseEnter={()=>{this.setState({...this.state,backgroundColor: "azure",color: "black"})}} onMouseLeave={()=>{this.setState({...this.state,backgroundColor: "black",color: "azure"})}} className='btn btn-primary success' onClick={searchdata}>Search</button></p>
 
-
+   {this.state.displayarr[0] && <div className='card' style={{color: "azure",backgroundColor:"rgba(22, 20, 20, 0.712)",marginLeft:"100px", marginRight:"100px",padding:"10px 20px"}}>
+   <p style={{ textAlign: "center", backgroundColor:"rgba(255, 63, 29, 0.562)",padding:"5px 0px",borderRadius: "15px", fontStyle: "solid",color: "azure" }} >Suggested Medicines</p>
       {this.state.displayarr.map((element)=>{
       return(
         <>
@@ -78,6 +81,7 @@ constructor(){
         </>
       )
     })}
+    </div>}
 
 
       </>

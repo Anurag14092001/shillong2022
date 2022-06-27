@@ -42,9 +42,9 @@ export default class Notices extends Component {
   
   render() {
     return (<>
-      <div className="card">
+      <div style={{backgroundColor: "rgba(34, 33, 33, 0.801)",marginTop:"15px"}} className="card">
         <div className="card-body">
-          <p style={{ textAlign: "center", fontStyle: "solid" }} >Low Medicine numbers</p>
+          <p style={{ textAlign: "center", backgroundColor:"rgba(255, 63, 29, 0.562)",padding:"5px 0px",borderRadius: "15px", fontStyle: "solid",color: "azure" }} >Low Medicine numbers</p>
           <ul name='numberlist'>
 
              {this.state.arr1.map((element)=>{
@@ -54,7 +54,7 @@ export default class Notices extends Component {
                )}
                else if(element.amount<10){
                  return(
-                   <><li style={{color: "blue"}}> <span style={{fontWeight: "bold"}}>{element.key}</span> is almost depleted. Only  <span style={{fontWeight: "bold"}}>{element.amount}</span> strips are remaining.</li>
+                   <><li style={{color: "lightblue"}}> <span style={{fontWeight: "bold"}}>{element.key}</span> is almost depleted. Only  <span style={{fontWeight: "bold"}}>{element.amount}</span> strips are remaining.</li>
                    </>
                  )
                }
@@ -63,9 +63,9 @@ export default class Notices extends Component {
             <li></li>      </ul>
         </div></div>
 
-      <div className='card'>
+      <div className='card' style={{backgroundColor: "rgba(34, 33, 33, 0.801)",marginTop:"15px"}}>
         <div className="card-body">
-          <p style={{ textAlign: "center", fontStyle: "solid" }} >Expired Medicines</p>
+          <p style={{ textAlign: "center", backgroundColor:"rgba(255, 63, 29, 0.562)",padding:"5px 0px",borderRadius: "15px", fontStyle: "solid",color: "azure" }} >Expired Medicines</p>
           <ul name='expiredlist'>
    {this.state.arr1.map((element)=>{
 
