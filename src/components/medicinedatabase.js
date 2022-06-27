@@ -12,7 +12,11 @@ export default class Medicinedatabase extends Component {
       tabledata: [],
       total: "0",
       displayarr: [],
-      medicinetabletdeduction: ""
+      medicinetabletdeduction: "",
+      color1: "azure",
+      backgroundColor1: "black",
+      color2: "azure",
+      backgroundColor2: "black",
 
 
 
@@ -126,34 +130,37 @@ export default class Medicinedatabase extends Component {
     return (
       <>
         <div style={{paddingTop: "12px"}} className="input-group">
-          <span className="input-group-text">Search</span>
-          <input type="text" id="medicinename" placeholder='enter name of medicine' value={this.state.medicinename} onChange={changedata} aria-label="Search" className="form-control" />
+          <span className="input-group-text" style={{color:"azure",backgroundColor:"black"}} >Search</span>
+          <input type="text" style={{backgroundColor: "rgba(22, 20, 20, 0.712)",color:"azure"}} id="medicinename" placeholder='enter name of medicine' value={this.state.medicinename} onChange={changedata} aria-label="Search" className="form-control" />
           
         </div>
 
-       <p style={{textAlign: "center",paddingTop: "5px"}}> <button className='btn btn-primary success'  onClick={this.searchdata} > Search </button></p>
+       <p style={{textAlign: "center",paddingTop: "5px"}}> <button className='btn btn-primary success' style={{color: this.state.color1,backgroundColor: this.state.backgroundColor1}} onMouseEnter={()=>{this.setState({...this.state,color1: "black",backgroundColor1:"azure"})}} onMouseLeave={()=>{this.setState({...this.state,color1:"azure",backgroundColor1:"black"})}} onClick={this.searchdata} > Search </button></p>
         {this.state.displayarr.map((element)=>{
       return(
         <>
+        <div className='card' style={{color: "azure",backgroundColor: "rgba(22, 20, 20, 0.712)",padding:"10px 10px"}}>
         <li>Name: {element.key}</li>
         <li>Shelf: {element.data.shelflocation}</li>
         <li>Surplus: {element.data.surpluslocation}</li>
         <li>strips left: {element.data.amount}</li>
+        <li>tablets left: {(element.data.amount)*(element.data.tabletamount)}</li>
         <li>Price per strip: {element.data.price}</li>
         <li>Tablets per strip: {element.data.tabletamount}</li>
         <li>price per tablet: {element.data.medicinepricepertablet}</li>
         <li>expiry: {element.data.expiry}</li>
-        <input type="text" id="medicinededuction" placeholder='Enter how many strips/bottles you want to add' value={this.state.medicinededuction} onChange={changedata} aria-label="Last name" className="form-control" />
-        <input type="text" id="medicinetabletdeduction" placeholder='Enter how many tablets you want to add' value={this.state.medicinetabletdeduction} onChange={changedata} aria-label="Last name" className="form-control" />
-        <button className='btn btn-primary success' onClick={this.addmedicine} > Add </button>
+        <input type="text" style={{color:"azure",backgroundColor:"black",margin:"5px 0px"}} id="medicinededuction" placeholder='Enter how many strips/bottles you want to add' value={this.state.medicinededuction} onChange={changedata} aria-label="Last name" className="form-control" />
+        <input type="text" style={{color:"azure",backgroundColor:"black",margin:"5px 0px"}} id="medicinetabletdeduction" placeholder='Enter how many tablets you want to add' value={this.state.medicinetabletdeduction} onChange={changedata} aria-label="Last name" className="form-control" />
+        <button className='btn btn-primary success' style={{margin:"5px 0px",color: this.state.color2,backgroundColor: this.state.backgroundColor2}} onMouseEnter={()=>{this.setState({...this.state,color2: "black",backgroundColor2:"azure"})}} onMouseLeave={()=>{this.setState({...this.state,color2:"azure",backgroundColor2:"black"})}} onClick={this.addmedicine} > Add </button>
+        </div>
         </>
       )
     })}
 
-        <table style={{color: "azure"}} className="table">
+       {this.state.tabledata[0] && <div className='card' style={{backgroundColor:"rgba(22, 20, 20, 0.712)",margin:"5px 0px"}}> <table style={{color: "azure" }} className="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              <th scope="col">Sl. No</th>
               <th scope="col">Medicine name</th>
               <th scope="col">Price per strip</th>
               <th scope="col">Number of Strips</th>
@@ -165,7 +172,7 @@ export default class Medicinedatabase extends Component {
             {this.state.tabledata.map((element) => {
               return (
                 <><tr>
-                  <th scope='row'>#</th>
+                  <th scope='row'></th>
                   <td>{element.key}</td>
                   <td>{element.price}</td>
                   <td>{element.deduction}</td>
@@ -175,9 +182,9 @@ export default class Medicinedatabase extends Component {
               )
             })}
           </tbody>
-        </table>
+        </table></div>}
 
-        <h2>Total: {this.state.total} </h2>
+        <h2 style={{textAlign: "center",color:"azure"}}>Total: {this.state.total} </h2>
 
       </>
 
