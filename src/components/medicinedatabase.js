@@ -93,7 +93,7 @@ export default class Medicinedatabase extends Component {
         shelflocation: obj.data.shelflocation,
         surpluslocation: obj.data.surpluslocation,
         tabletamount: obj.data.tabletamount,
-        tablettotal: `${parseFloat(obj.tablettotal)-parseFloat(obj.deduction)}`
+        tablettotal: `${parseFloat(obj.data.tablettotal)-parseFloat(obj.deduction)}`
       })
       this.setState({...this.state,tabledata:[...this.state.tabledata,obj],total: `${parseFloat(this.state.total)+parseFloat(obj.cost)}`});
   this.searchdata();
@@ -114,7 +114,8 @@ export default class Medicinedatabase extends Component {
         price: obj.data.price,
         shelflocation: obj.data.shelflocation,
         surpluslocation: obj.data.surpluslocation,
-        tabletamount: obj.data.tabletamount
+        tabletamount: obj.data.tabletamount,
+        tablettotal: `${parseFloat(obj.data.tablettotal)-parseFloat(obj.deduction)}`
       });
       console.log(1);
       this.setState({...this.state,tabledata:[...this.state.tabledata,obj],total: `${parseFloat(this.state.total)+parseFloat(obj.cost)}`});
@@ -159,7 +160,7 @@ export default class Medicinedatabase extends Component {
         <li>Shelf: {element.data.shelflocation}</li>
         <li>Surplus: {element.data.surpluslocation}</li>
         <li>strips left: {element.data.amount}</li>
-        <li>tablets left: {(element.data.amount)*(element.data.tabletamount)}</li>
+        <li>tablets left: {(element.data.tablettotal)}</li>
         <li>Price per strip: {element.data.price}</li>
         <li>Tablets per strip: {element.data.tabletamount}</li>
         <li>price per tablet: {element.data.medicinepricepertablet}</li>
