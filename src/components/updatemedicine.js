@@ -36,7 +36,12 @@ export default class Updatemedicine extends Component {
 
       medicineamount: "", 
       queryname: "",
-      displayarr: []
+      displayarr: [],color1: "azure",
+      backgroundColor1: "black",
+      color2: "azure",
+      backgroundColor2: "black",
+      color3: "azure",
+      backgroundColor3: "black"
       
     }
   }
@@ -175,18 +180,29 @@ export default class Updatemedicine extends Component {
 
   
   render() {
+
+    const inputstyle={
+      color: "azure",
+      backgroundColor: "black"
+    }
+
+    const spanstyle={
+      color: "azure",
+      backgroundColor: "black"
+    }
+
     return (
       <>
    <form >
-     <h2 style={{textAlign: "center"}}>Reference Section</h2>
+     <h2 style={{textAlign: "center",color:"azure"}}>Reference Section</h2>
      <div className="input-group flex-nowrap my-2">
-          <span className="input-group-text" id="addon-wrapping">Medicine</span>
-          <input type="text" name='queryname'  className="form-control" onChange={this.handlechange} placeholder="Enter the name of medicine" aria-label="Username" aria-describedby="addon-wrapping" />
+          <span style={spanstyle} className="input-group-text" id="addon-wrapping">Medicine</span>
+          <input type="text" style={inputstyle} name='queryname'  className="form-control" onChange={this.handlechange} placeholder="Enter the name of medicine" aria-label="Username" aria-describedby="addon-wrapping" />
         </div>
-        <p style={{textAlign: "center"}}><button onClick={this.searchdata} className='btn btn-primary success'> Search</button></p>
+        <p style={{textAlign: "center"}}><button style={{color: this.state.color1,backgroundColor:this.state.backgroundColor1}} onMouseLeave={()=>{this.setState({...this.state,color1:"azure",backgroundColor1:"black"})}} onMouseEnter={()=>{this.setState({...this.state,color1: "black",backgroundColor1:"azure"})}} onClick={this.searchdata} className='btn btn-primary success'> Search</button></p>
    </form>
 
-   <div className="card my-3" >
+   <div className="card my-3" style={{color: "azure",backgroundColor: "rgba(22, 20, 20, 0.712)"}} >
   <ul className="list-group list-group-flush">
     {this.state.displayarr.map((element)=>{
       return(
@@ -200,7 +216,7 @@ export default class Updatemedicine extends Component {
         <li>Price per strip: Rs.{element.price}</li>
         <li>Cost per Tablet: Rs.{element.pertab}</li>
         <li><ul >Ingredients:{element.ingredients.map((element)=>{return(<><li>{element}</li></>)})}</ul></li>
-       <button className='btn btn-primary success' onClick={this.pastedata} >Paste</button>
+       <button style={{color: this.state.color2,backgroundColor:this.state.backgroundColor2}} onMouseLeave={()=>{this.setState({...this.state,color2:"azure",backgroundColor2:"black"})}} onMouseEnter={()=>{this.setState({...this.state,color2: "black",backgroundColor2:"azure"})}} className='btn btn-primary success' onClick={this.pastedata} >Paste</button>
         
         
         </>
@@ -212,50 +228,50 @@ export default class Updatemedicine extends Component {
 
 
  <form >
-        <h2 style={{textAlign: "center"}}>Enter Medicine Details to be Updated</h2>
+        <h2 style={{textAlign: "center",color:"azure"}}>Enter Medicine Details to be Updated</h2>
 
         <div className="input-group flex-nowrap my-2">
-          <span className="input-group-text" id="addon-wrapping">Medicine name</span>
-          <input type="text" name='medicinename' ref={this.nameref} id="updatemedicinename" className="form-control" onChange={this.handlechange} placeholder="seperate the ingredients using a plus sign" aria-label="Username" aria-describedby="addon-wrapping" />
+          <span style={spanstyle} className="input-group-text" id="addon-wrapping">Medicine name</span>
+          <input type="text" style={inputstyle} name='medicinename' ref={this.nameref} id="updatemedicinename" className="form-control" onChange={this.handlechange} placeholder="seperate the ingredients using a plus sign" aria-label="Username" aria-describedby="addon-wrapping" />
         </div>
 
         <div className="input-group flex-nowrap my-2">
-          <span className="input-group-text" id="addon-wrapping">Medicine Amount</span>
-          <input type="text" name='medicineamount' ref={this.amountref} id="updatemedicinename" className="form-control" onChange={this.handlechange} placeholder="Enter the new number of medicines after addition " aria-label="Username" aria-describedby="addon-wrapping" />
+          <span style={spanstyle} className="input-group-text" id="addon-wrapping">Medicine Amount</span>
+          <input type="text" style={inputstyle} name='medicineamount' ref={this.amountref} id="updatemedicinename" className="form-control" onChange={this.handlechange} placeholder="Enter the new number of medicines after addition " aria-label="Username" aria-describedby="addon-wrapping" />
         </div>
 
         <div className="input-group flex-nowrap my-2">
-          <span className="input-group-text" id="addon-wrapping">Medicine Tablet Amount</span>
-          <input type="text" name='medicinetabletamount' ref={this.tabletamountref} id="updatemedicinename" className="form-control" onChange={this.handlechange} placeholder="Enter the number of tablets per strip " aria-label="Username" aria-describedby="addon-wrapping" />
+          <span style={spanstyle} className="input-group-text" id="addon-wrapping">Medicine Tablet Amount</span>
+          <input  type="text" style={inputstyle} name='medicinetabletamount' ref={this.tabletamountref} id="updatemedicinename" className="form-control" onChange={this.handlechange} placeholder="Enter the number of tablets per strip " aria-label="Username" aria-describedby="addon-wrapping" />
         </div>
 
         <div className="input-group flex-nowrap my-2">
-          <span className="input-group-text" id="addon-wrapping">Medicine shelf location</span>
-          <input type="text" name='medicineshelflocation' ref={this.shelfref} id="updatemedicineshelflocation" className="form-control" onChange={this.handlechange} placeholder="seperate the ingredients using a plus sign" aria-label="Username" aria-describedby="addon-wrapping" />
+          <span style={spanstyle} className="input-group-text" id="addon-wrapping">Medicine shelf location</span>
+          <input type="text" style={inputstyle} name='medicineshelflocation' ref={this.shelfref} id="updatemedicineshelflocation" className="form-control" onChange={this.handlechange} placeholder="seperate the ingredients using a plus sign" aria-label="Username" aria-describedby="addon-wrapping" />
         </div>
 
         <div className="input-group flex-nowrap my-2">
-          <span className="input-group-text" id="addon-wrapping">Medicine Surplus Shelf location</span>
-          <input type="text" name='medicinesurpluslocation' ref={this.surplusref} id="updatemedicinesurpluslocation" className="form-control" onChange={this.handlechange} placeholder="seperate the ingredients using a plus sign" aria-label="Username" aria-describedby="addon-wrapping" />
+          <span style={spanstyle} className="input-group-text" id="addon-wrapping">Medicine Surplus Shelf location</span>
+          <input type="text" style={inputstyle} name='medicinesurpluslocation' ref={this.surplusref} id="updatemedicinesurpluslocation" className="form-control" onChange={this.handlechange} placeholder="seperate the ingredients using a plus sign" aria-label="Username" aria-describedby="addon-wrapping" />
         </div>
 
         <div className="input-group flex-nowrap my-2">
-          <span className="input-group-text" id="addon-wrapping">Medicine Price</span>
-          <input type="text" name='medicineprice' ref={this.priceref} id="updatemedicineprice" className="form-control" onChange={this.handlechange} placeholder="seperate the ingredients using a plus sign" aria-label="Username" aria-describedby="addon-wrapping" />
+          <span style={spanstyle} className="input-group-text" id="addon-wrapping">Medicine Price</span>
+          <input type="text" style={inputstyle} name='medicineprice' ref={this.priceref} id="updatemedicineprice" className="form-control" onChange={this.handlechange} placeholder="seperate the ingredients using a plus sign" aria-label="Username" aria-describedby="addon-wrapping" />
         </div>
 
         <div className="input-group flex-nowrap my-2">
-          <span className="input-group-text" id="addon-wrapping">Medicine ingredients</span>
-          <input type="text" name='medicineingredients' ref={this.ingredientsref} id="updatemedicineingredients" className="form-control" onChange={this.handlechange} placeholder="seperate the ingredients using a plus sign" aria-label="Username" aria-describedby="addon-wrapping" />
+          <span style={spanstyle} className="input-group-text" id="addon-wrapping">Medicine ingredients</span>
+          <input type="text" style={inputstyle} name='medicineingredients' ref={this.ingredientsref} id="updatemedicineingredients" className="form-control" onChange={this.handlechange} placeholder="seperate the ingredients using a plus sign" aria-label="Username" aria-describedby="addon-wrapping" />
         </div>
 
         <div className="input-group mb-3 my-2">
-  <input type="text" className="form-control" name='medicineexpirymonth' ref={this.monthref} onChange={this.handlechange} value={this.state.medicineexpirymonth} placeholder="New Month" aria-label="Month"/>
-  <span className="input-group-text">Medicine expiry date</span>
-  <input type="text" className="form-control" name='medicineexpiryyear' ref={this.yearref} onChange={this.handlechange} value={this.state.medicineexpiryyear} placeholder="New Year" aria-label="Year"/>
+  <input type="text" style={inputstyle} className="form-control" name='medicineexpirymonth' ref={this.monthref} onChange={this.handlechange} value={this.state.medicineexpirymonth} placeholder="New Month" aria-label="Month"/>
+  <span style={spanstyle} className="input-group-text">Medicine expiry date</span>
+  <input type="text" style={inputstyle} className="form-control" name='medicineexpiryyear' ref={this.yearref} onChange={this.handlechange} value={this.state.medicineexpiryyear} placeholder="New Year" aria-label="Year"/>
          </div>
 
-        <button className='btn btn-primary success my-3' onClick={this.updatedata}>Update</button>
+        <button style={{color: this.state.color3,backgroundColor:this.state.backgroundColor3}} onMouseLeave={()=>{this.setState({...this.state,color3:"azure",backgroundColor3:"black"})}} onMouseEnter={()=>{this.setState({...this.state,color3: "black",backgroundColor3:"azure"})}} className='btn btn-primary success my-3' onClick={this.updatedata}>Update</button>
 </form>
 
       </>
