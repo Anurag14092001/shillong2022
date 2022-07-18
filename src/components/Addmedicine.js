@@ -56,6 +56,7 @@ console.log("0");
       shelflocation: this.state.medicineShelfLocation.toUpperCase(),
       surpluslocation: this.state.medicineSurplusLocation.toUpperCase(),
       ingredients: this.state.medicineingredients.toUpperCase().split("+"),
+      tablettotal: `${parseFloat(this.state.medicineamount)*parseFloat(this.state.medicinetabletamount)}`,
       price: this.state.medicineprice.toUpperCase(),
       amount: this.state.medicineamount.toUpperCase(),
       tabletamount: this.state.medicinetabletamount.toUpperCase(),

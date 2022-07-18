@@ -42,18 +42,29 @@ export default class Medicinedatabase extends Component {
     
   }
 
+  commit=(e)=>{
+   e.preventDefault();
+   const ok = this.state.tabledata;
+   console.log(ok);
+   
+  }
+
+  finish=(e)=>{
+  e.preventDefault();
+  }
+
   addmedicine = (e) => {
     e.preventDefault();
     const db= getDatabase(firedb);
     const name= this.state.medicinename.toUpperCase();
     var deduction="";
     if(this.state.medicinededuction===""&&this.state.medicinetabletdeduction!==""){
-     deduction= `${parseFloat(this.state.medicinetabletdeduction)/parseFloat(this.state.displayarr[0].data.tabletamount)}`;}
+     deduction= `${parseFloat(this.state.medicinetabletdeduction)}`;}
     else if(this.state.medicinededuction!==""&&this.state.medicinetabletdeduction===""){
-     deduction = this.state.medicinededuction;
+     deduction = `${parseFloat(this.state.medicinededuction)*parseFloat(this.state.displayarr[0].data.tabletamount)}`;
     }
     else if(this.state.medicinededuction!==""&&this.state.medicinetabletdeduction!==""){
-    deduction = `${parseFloat(this.state.medicinededuction)+(parseFloat(this.state.medicinetabletdeduction)/parseFloat(this.state.displayarr[0].data.tabletamount))}`
+    deduction = `${parseFloat(this.state.medicinetabletdeduction)+(parseFloat(this.state.medicinededuction)*parseFloat(this.state.displayarr[0].data.tabletamount))}`
     }
     console.log(deduction);
     var obj ="";
@@ -63,7 +74,7 @@ export default class Medicinedatabase extends Component {
       const price= snapshot.val().price;
       const data= snapshot.val();
       const amount =snapshot.val().amount;
-      const cost = `${(parseFloat(snapshot.val().price)*parseFloat(deduction))}`;
+      const cost = `${(parseFloat(snapshot.val().price)*(parseFloat(deduction)/parseFloat(snapshot.val().tabletamount)))}`;
       
       obj = {"key":key,"price":price,"amount":amount,"deduction": deduction,"data":data,"cost":cost};
       console.log("check");
@@ -71,9 +82,9 @@ export default class Medicinedatabase extends Component {
       }
     )
 
-    if(parseFloat(obj.amount)>parseFloat(obj.deduction)){
+    if(parseFloat(obj.data.tablettotal)>parseFloat(obj.deduction)){
       set(ref(db, "Medicines/"+obj.key),{
-        amount: `${(parseFloat(obj.amount)-parseFloat(obj.deduction))}`,
+        amount: `${((parseFloat(obj.data.tablettotal)-parseFloat(obj.deduction))/parseFloat(obj.data.tabletamount))}`,
         expiry: obj.data.expiry,
         ingredients: obj.data.ingredients,
         medicinepricepertablet: obj.data.medicinepricepertablet,
@@ -81,19 +92,21 @@ export default class Medicinedatabase extends Component {
         price: obj.data.price,
         shelflocation: obj.data.shelflocation,
         surpluslocation: obj.data.surpluslocation,
-        tabletamount: obj.data.tabletamount
+        tabletamount: obj.data.tabletamount,
+        tablettotal: `${parseFloat(obj.tablettotal)-parseFloat(obj.deduction)}`
       })
       this.setState({...this.state,tabledata:[...this.state.tabledata,obj],total: `${parseFloat(this.state.total)+parseFloat(obj.cost)}`});
   this.searchdata();
     console.log(obj);}
 
-    if(parseFloat(obj.amount)<parseFloat(obj.deduction)){
+    if(parseFloat(obj.data.tablettotal)<parseFloat(obj.deduction)){
      alert(`there are only ${obj.amount} units of ${obj.key} remaining!`);
     }
+    console.log(0);
 
-    if(parseFloat(obj.amount)===parseFloat(obj.deduction)){
+    if(parseFloat(obj.data.tablettotal)===parseFloat(obj.deduction)){
       set(ref(db, "Medicines/"+obj.key),{
-        amount: `${(parseFloat(obj.amount)-parseFloat(obj.deduction))}`,
+        amount: `${((parseFloat(obj.data.tablettotal)-parseFloat(obj.deduction))/parseFloat(obj.data.tabletamount))}`,
         expiry: obj.data.expiry,
         ingredients: obj.data.ingredients,
         medicinepricepertablet: obj.data.medicinepricepertablet,
@@ -102,10 +115,12 @@ export default class Medicinedatabase extends Component {
         shelflocation: obj.data.shelflocation,
         surpluslocation: obj.data.surpluslocation,
         tabletamount: obj.data.tabletamount
-      })
+      });
+      console.log(1);
       this.setState({...this.state,tabledata:[...this.state.tabledata,obj],total: `${parseFloat(this.state.total)+parseFloat(obj.cost)}`});
+      console.log(2);
       alert(`${obj.key} has been finished!`);
-      this.searchdata();
+      
     }
 
     
@@ -175,7 +190,7 @@ export default class Medicinedatabase extends Component {
                   <th scope='row'></th>
                   <td>{element.key}</td>
                   <td>{element.price}</td>
-                  <td>{element.deduction}</td>
+                  <td>{element.deduction/element.data.tabletamount}</td>
                   <td>{element.cost}</td>
                 </tr>
                 </>
@@ -185,6 +200,10 @@ export default class Medicinedatabase extends Component {
         </table></div>}
 
         <h2 style={{textAlign: "center",color:"azure"}}>Total: {this.state.total} </h2>
+        
+        <button className='btn btn-primary success' style={{margin:"5px 0px",color: this.state.color2,backgroundColor: this.state.backgroundColor2}} onMouseEnter={()=>{this.setState({...this.state,color2: "black",backgroundColor2:"azure"})}} onMouseLeave={()=>{this.setState({...this.state,color2:"azure",backgroundColor2:"black"})}} onClick={this.commit}> Commit </button>
+
+        <button className='btn btn-primary success' style={{margin:"5px 0px",color: this.state.color2,backgroundColor: this.state.backgroundColor2}} onMouseEnter={()=>{this.setState({...this.state,color2: "black",backgroundColor2:"azure"})}} onMouseLeave={()=>{this.setState({...this.state,color2:"azure",backgroundColor2:"black"})}} onClick={this.finish} > Finish for today </button>
 
       </>
 

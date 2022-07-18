@@ -96,6 +96,7 @@ export default class Updatemedicine extends Component {
       shelflocation: this.state.medicineshelflocation.toUpperCase(),
       surpluslocation: this.state.medicinesurpluslocation.toUpperCase(),
       ingredients: this.state.medicineingredients.toUpperCase().split("+"),
+      tablettotal: `${parseFloat(this.state.medicineamount.toUpperCase())*parseFloat(this.state.medicinetabletamount.toUpperCase())}`,
       price: this.state.medicineprice.toUpperCase(),
       amount: this.state.medicineamount.toUpperCase(),
       tabletamount: this.state.medicinetabletamount.toUpperCase(),
