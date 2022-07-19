@@ -85,7 +85,7 @@ export default class Notices extends Component {
        <><li style={{color: "red"}}><span style={{fontWeight: "bold"}}>{element.key}</span> has expired!</li></>
      </>)}
 
-if(presentyear===expiryyear&&(expirymonth-presentmonth)<=4&&(expirymonth-presentmonth)>0){
+if(presentyear===expiryyear&&(expirymonth-presentmonth)<=11&&(expirymonth-presentmonth)>0){
   return(<>
   <><li style={{color: "lightblue"}}><span style={{fontWeight: "bold"}}>{element.key}</span> will expire in {expirymonth-presentmonth} months, please start pushing it!</li></>
 </>)}
