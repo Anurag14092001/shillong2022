@@ -44,13 +44,39 @@ export default class Medicinedatabase extends Component {
 
   commit=(e)=>{
    e.preventDefault();
-   const ok = this.state.tabledata;
-   console.log(ok);
+   window.location.reload();
+   
    
   }
 
   finish=(e)=>{
   e.preventDefault();
+  const db= getDatabase(firedb);
+  this.state.tabledata.forEach((obj)=>{
+    let strips="";
+    let tablets="";
+    onValue(ref(db, "Medicines/"+obj.key),(snapshot)=>{
+      strips = snapshot.val().amount;
+      tablets = snapshot.val().tablettotal;
+    })
+
+
+    set(ref(db, "Medicines/"+obj.key),{
+      amount: `${((parseFloat(tablets)+parseFloat(obj.deduction))/parseFloat(obj.data.tabletamount))}`,
+        expiry: obj.data.expiry,
+        ingredients: obj.data.ingredients,
+        medicinepricepertablet: obj.data.medicinepricepertablet,
+        name: obj.data.name,
+        price: obj.data.price,
+        shelflocation: obj.data.shelflocation,
+        surpluslocation: obj.data.surpluslocation,
+        tabletamount: obj.data.tabletamount,
+        tablettotal: `${parseFloat(tablets)+parseFloat(obj.deduction)}`
+    })}
+    
+
+  )
+  this.setState({...this.state,tabledata:[]});
   }
 
   addmedicine = (e) => {
@@ -202,9 +228,9 @@ export default class Medicinedatabase extends Component {
 
         <h2 style={{textAlign: "center",color:"azure"}}>Total: {this.state.total} </h2>
         
-        <button className='btn btn-primary success' style={{margin:"5px 0px",color: this.state.color2,backgroundColor: this.state.backgroundColor2}} onMouseEnter={()=>{this.setState({...this.state,color2: "black",backgroundColor2:"azure"})}} onMouseLeave={()=>{this.setState({...this.state,color2:"azure",backgroundColor2:"black"})}} onClick={this.commit}> Commit </button>
+        <p style={{textAlign: "center"}}><button className='btn btn-primary success' style={{margin:"5px 0px",color: this.state.color2,backgroundColor: this.state.backgroundColor2}} onMouseEnter={()=>{this.setState({...this.state,color2: "black",backgroundColor2:"azure"})}} onMouseLeave={()=>{this.setState({...this.state,color2:"azure",backgroundColor2:"black"})}} onClick={this.commit}> Save </button>
 
-        <button className='btn btn-primary success' style={{margin:"5px 0px",color: this.state.color2,backgroundColor: this.state.backgroundColor2}} onMouseEnter={()=>{this.setState({...this.state,color2: "black",backgroundColor2:"azure"})}} onMouseLeave={()=>{this.setState({...this.state,color2:"azure",backgroundColor2:"black"})}} onClick={this.finish} > Finish for today </button>
+        <button className='btn btn-primary success' style={{margin:"5px 0px",color: this.state.color2,backgroundColor: this.state.backgroundColor2}} onMouseEnter={()=>{this.setState({...this.state,color2: "black",backgroundColor2:"azure"})}} onMouseLeave={()=>{this.setState({...this.state,color2:"azure",backgroundColor2:"black"})}} onClick={this.finish} > Cancel </button></p>
 
       </>
 
