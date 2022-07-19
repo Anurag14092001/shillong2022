@@ -271,7 +271,7 @@ export default class Updatemedicine extends Component {
   <input type="text" style={inputstyle} className="form-control" name='medicineexpiryyear' ref={this.yearref} onChange={this.handlechange} value={this.state.medicineexpiryyear} placeholder="New Year" aria-label="Year"/>
          </div>
 
-        <button style={{color: this.state.color3,backgroundColor:this.state.backgroundColor3}} onMouseLeave={()=>{this.setState({...this.state,color3:"azure",backgroundColor3:"black"})}} onMouseEnter={()=>{this.setState({...this.state,color3: "black",backgroundColor3:"azure"})}} className='btn btn-primary success my-3' onClick={this.updatedata}>Update</button>
+      <p style={{textAlign: "center"}}>  <button style={{color: this.state.color3,backgroundColor:this.state.backgroundColor3}} onMouseLeave={()=>{this.setState({...this.state,color3:"azure",backgroundColor3:"black"})}} onMouseEnter={()=>{this.setState({...this.state,color3: "black",backgroundColor3:"azure"})}} className='btn btn-primary success my-3' onClick={this.updatedata}>Update</button></p>
 </form>
 
       </>
