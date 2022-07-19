@@ -32,7 +32,7 @@ export class Navbar extends Component {
     return (
       <nav style={{backgroundColor: "#336B87",borderRadius: "5px"}} className={`navbar navbar-expand-lg navbar-${toggle} bg-${toggle}`}>
       <div className="container-fluid">
-        <Link className="navbar-brand" style={{color: this.state.color1,backgroundColor: this.state.backgroundColor1,padding:"4px 10px",borderRadius: "4px",margin: "5px 5px"}} onMouseEnter={()=>{this.setState({color1 : "#90AFC5",backgroundColor1: "black"})}} onMouseLeave={()=>{this.setState({color1 : "black",backgroundColor1: "#90AFC5"})}} to="/">The Mediciner</Link>
+        <Link className="navbar-brand" style={{color: this.state.color1,backgroundColor: this.state.backgroundColor1,padding:"4px 10px",borderRadius: "4px",margin: "5px 5px"}} onMouseEnter={()=>{this.setState({color1 : "#90AFC5",backgroundColor1: "black"})}} onMouseLeave={()=>{this.setState({color1 : "black",backgroundColor1: "#90AFC5"})}} to="/">Medbook</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
